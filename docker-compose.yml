@@ -1,0 +1,26 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+    - 6379:6379
+    networks:
+        - tutorials
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - 5540:5540
+    networks:
+      - tutorials
+    volumes:
+      - redisinsight_data:/db
+    restart: always
+
+volumes:
+  redisinsight_data:
+    driver: local
+
+networks:
+  tutorials:
+    external: true
